@@ -21,7 +21,6 @@ on:
 jobs:
   validate_pins_files:
     name: Validate boards.h
-    if: github.repository == 'MarlinFirmware/Marlin'
 
     runs-on: ubuntu-22.04
 

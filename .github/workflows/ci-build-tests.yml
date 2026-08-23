@@ -33,7 +33,6 @@ on:
 jobs:
   test_builds:
     name: Build Test
-    if: github.repository == 'MarlinFirmware/Marlin'
 
     runs-on: ubuntu-22.04
 

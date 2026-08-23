@@ -18,7 +18,6 @@ on:
 jobs:
   validate_source_files:
     name: Validate Source Files
-    if: github.repository == 'MarlinFirmware/Marlin'
 
     runs-on: ubuntu-22.04
 
