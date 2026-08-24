@@ -32,9 +32,23 @@ jobs:
   # multiple jobs, they currently run quickly and finish long before the compilation tests.
   run_unit_tests:
     name: Unit Test
-    # These tests will only be able to run on the bugfix-2.1.x branch, until the next release
-    # pulls them into additional branches.
-    if: github.repository == 'MarlinFirmware/Marlin'
+    # Disabled for this fork.
+    #
+    # Marlin's unit tests run `restore_configs`, which checks out the committed
+    # Marlin/Configuration.h and then layers the test/*.ini deltas on top. The
+    # harness therefore assumes that committed file is Marlin's stock default
+    # configuration. Here it is the hot press machine config, and two of its
+    # features have no implementation on the native target the tests build for:
+    #
+    #   - LCM1602 character LCD -> HD44780 drivers need Arduino libraries
+    #     (fatal error: WProgram.h: No such file or directory)
+    #   - MAX31855 thermocouples -> need SPI, absent from the LINUX HAL
+    #     (undefined reference to `spiBegin()' in module/temperature.cpp)
+    #
+    # Making this job pass would mean overriding both away in the test configs,
+    # at which point it exercises a machine unrelated to this one. Re-enable if
+    # Marlin/Configuration.h ever builds for the native target.
+    if: false
 
     runs-on: ubuntu-22.04
 

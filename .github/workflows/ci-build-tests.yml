@@ -33,7 +33,23 @@ on:
 jobs:
   test_builds:
     name: Build Test
-    if: github.repository == 'MarlinFirmware/Marlin'
+    # Disabled for this fork. See ci-build-hotpress.yml for the build that
+    # actually covers this machine.
+    #
+    # Every buildroot/tests/<board>/config-NN.ini layers its options on top of
+    # the committed Marlin/Configuration.h, so the matrix assumes that file is
+    # Marlin's stock default. Here it is the hot press config, and the test
+    # configs collide with it immediately:
+    #
+    #   mega2560      -> #error "Please select only one LCD controller option."
+    #                    (the test config picks an LCD; LCM1602 is already set)
+    #   linux_native  -> fatal error: WProgram.h: No such file or directory
+    #                    (HD44780 drivers need Arduino libraries)
+    #
+    # The matrix therefore never reaches the code it means to test. Upstream
+    # runs it to keep changes from breaking other people's printers, which is
+    # not what this repository is for.
+    if: false
 
     runs-on: ubuntu-22.04
 
