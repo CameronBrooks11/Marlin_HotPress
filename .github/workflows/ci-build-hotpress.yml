@@ -1,0 +1,51 @@
+#
+# ci-build-hotpress.yml
+# Build this machine's configuration for the board it actually runs on.
+#
+# Marlin's own build matrix (ci-build-tests.yml) cannot be used here: its test
+# configs layer options onto the committed Marlin/Configuration.h and assume
+# that file is Marlin's stock default. This job takes the opposite approach and
+# simply compiles the configuration as committed, which is the thing that has
+# to keep working.
+#
+
+name: CI - Build Hot Press
+
+on:
+  pull_request:
+    branches:
+    - bugfix-2.1.x
+    paths-ignore:
+    - docs/**
+    - '**/*.md'
+  push:
+    branches:
+    - bugfix-2.1.x
+    paths-ignore:
+    - docs/**
+    - '**/*.md'
+
+jobs:
+  build_hotpress:
+    name: Build (mega2560)
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Check out the PR
+      uses: actions/checkout@v7
+
+    - name: Select Python 3.11
+      uses: actions/setup-python@v7
+      with:
+        python-version: '3.11'
+
+    - name: Install PlatformIO
+      run: |
+        pip install -U platformio
+        pio pkg update --global
+
+    # No restore_configs and no config.ini: build Marlin/Configuration.h and
+    # Marlin/Configuration_adv.h exactly as committed, for BOARD_RAMPS_14_EFB.
+    - name: Build firmware
+      run: pio run -e mega2560
