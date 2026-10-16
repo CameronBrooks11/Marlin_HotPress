@@ -25,6 +25,9 @@ on:
     - docs/**
     - '**/*.md'
 
+permissions:
+  contents: read
+
 jobs:
   build_hotpress:
     name: Build (mega2560)
