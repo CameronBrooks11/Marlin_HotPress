@@ -30,6 +30,9 @@ on:
     - Marlin/tests/**
     - '**/*.md'
 
+permissions:
+  contents: read
+
 jobs:
   test_builds:
     name: Build Test

@@ -27,6 +27,9 @@ on:
     - docs/**
     - '**/*.md'
 
+permissions:
+  contents: read
+
 jobs:
   # This runs all unit tests as a single job. While it should be possible to break this up into
   # multiple jobs, they currently run quickly and finish long before the compilation tests.
