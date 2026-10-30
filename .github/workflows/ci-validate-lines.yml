@@ -15,6 +15,9 @@ on:
       - bugfix-2.1.x
       - 2.1.x
 
+permissions:
+  contents: read
+
 jobs:
   validate_source_files:
     name: Validate Source Files

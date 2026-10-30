@@ -18,6 +18,9 @@ on:
     paths:
       - "Marlin/src/core/boards.h"
 
+permissions:
+  contents: read
+
 jobs:
   validate_pins_files:
     name: Validate boards.h

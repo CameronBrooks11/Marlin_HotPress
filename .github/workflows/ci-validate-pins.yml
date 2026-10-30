@@ -21,6 +21,9 @@ on:
     paths:
       - "Marlin/src/pins/*/**"
 
+permissions:
+  contents: read
+
 jobs:
   validate_pins_files:
     name: Validate Pins Files
