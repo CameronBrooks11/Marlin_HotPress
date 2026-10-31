@@ -1,4 +1,4 @@
-FROM python:3.14-bookworm
+FROM python:3.15-bookworm
 
 # Install build dependencies for simulator UI
 RUN apt-get update && apt-get install -y \
